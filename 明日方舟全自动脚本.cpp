@@ -3,7 +3,6 @@
 #include <windows.h>
 #include <process.h>
 using namespace std;
-
 int a = 4;
 bool b = false, c = false, first = false;
 HWND hwnd = NULL, hwnddad = NULL, hnow = NULL;
@@ -111,14 +110,12 @@ void Dormitory(int x, int y)//宿舍
 void TradingPost(int x, int y)//贸易站
 {
 	MCS(x, y, 1000);
-	MCS(493, 858, 1140);
-	for (int i = 0; i < 15; i++)
-		MCS(634, 503, 1000);
-	Substitution(false);
+	MCS(x, y, 1000);
+	Substitution(true);
 	MCS(1669, 926, 50);
+	MCS(453, 858, 1140);
+	MCS(453, 858, 1140);
 	MCS(270, 430, 1200);
-	for (int i = 0; i < 15; i++)
-		MCS(634, 503, 1000);
 	Substitution(false);
 	MCS(1669, 926, 30);
 	MCS(241, 86, 1200);
@@ -161,7 +158,7 @@ void start(void*)
 	Dormitory(1193, 578);
 	Dormitory(1151, 443);
 	Dormitory(1216, 245);
-	TradingPost(220, 440);//贸易站坐标
+	TradingPost(315, 444);//贸易站坐标
 	ManuFacturingStation(474, 438);//制造站坐标
 	MCS(238, 94, 500);
 	MCS(238, 94, 500);
@@ -180,7 +177,7 @@ void start(void*)
 	MCS(753, 660, 30);
 	MCS(913, 388, 30);
 	MCS(906, 608, 30);
-	MCS(1613, 929, 30);
+	MCS(1613, 929, 100);
 	MCS(600, 90, 1525);//退出基建 
 	MCS(268, 333, 530);
 	//信用商城 
@@ -299,7 +296,9 @@ void start(void*)
 void repeat(void*)//重复刷关
 {
 	for (int i = 0;; i++)
+	{
 		MCS(1550, 870 + 99 * (i % 3 > 0), 666);
+	}
 }
 
 int main()
@@ -308,10 +307,11 @@ int main()
 	POINT point, screen = { GetSystemMetrics(0) ,GetSystemMetrics(1) };
 	HWND pointhwnd;
 	char title[11];
-	if (SetPrivilege(SE_SECURITY_NAME, TRUE))
-		cout << "状态：脚本操作权限正常\n" << endl;
-	else
-		cout << "警告：脚本操作权限受限！脚本有可能无法正常操作！请用管理员权限运行！\n" << endl;
+	if (!SetPrivilege(SE_SECURITY_NAME, TRUE))
+	{
+		if (MessageBoxA(0, "检测到操作权限受限，建议用管理员模式运行，是否继续打开？", "权限提示：", 4) != 5)
+			exit(0);
+	}
 	cout << "脚本功能：自动处理基建(订单制造站信赖宿舍干员替换等),信用收取使用,\n公开招募收取,0理智刷图完成每日任务并领取所有奖励\n" << endl;
 	cout << "热键及对应功能：\nF10启动/终止自动化日常操作\nF9开启/关闭自动化刷图操作\nF8切换不耗/全耗理智模式\nF7开启/关闭免打扰模式\nF6结束脚本\n" << endl;
 	cout << "注意：全耗理智模式为自动刷4次LS-5,默认不耗\nF10(操作结束自动关闭)和F9同一时间只能开启一个,同时开启会统一关闭功能" << endl;
