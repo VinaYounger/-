@@ -75,7 +75,7 @@ int main()
 				if (atoi(GetMid(full, " ", "/").c_str()) >= atoi(GetMid(full, "/", "<").c_str()))//再过滤出没选满的课程
 					continue;
 				*/
-				if (place.find("线上") != -1 || place.find("QQ") != -1 || place.find("qq") != -1 || place.find("腾讯") != -1 || place.find("邮箱") != -1)//过滤出线上课程
+				if (place.find("线上") != -1 || place.find("QQ") != -1 || place.find("qq") != -1 || place.find("腾讯") != -1 || place.find("邮箱") != -1 || place.find("群") != -1)//过滤出线上课程
 				{
 					int pos_url_name = HttpText.rfind("getCourseInfo(\'", pos);//取课程网址及名称在文本的位置
 					string CourseID = GetMid(HttpText.substr(pos_url_name, 200), "getCourseInfo(\'", "\')\">");//取课程号
